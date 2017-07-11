@@ -4,7 +4,7 @@
 
 <h1 id="demo">Calculateur d'itinéraire </h1>
 
-<div id="image_velo">merci d'activer la localisation pour calculer votre itinéraire <br /> <button onclick="getLocation()">Cliquez ici pour autoriser la localisation</button></div>
+<div id="itinerary">merci d'activer la localisation pour calculer votre itinéraire <br /> <button onclick="getLocation()">Cliquez ici pour autoriser la localisation</button></div>
 
 <script>
 var x = document.getElementById("demo");
@@ -19,9 +19,11 @@ function getLocation() {
 
 function showPosition(position) {
     var latlon = position.coords.latitude + "," + position.coords.longitude;
+    var destineo_loc = position.coords.longitude + "%3B" + position.coords.latitude;
     var geovelo_url = "https://www.geovelo.fr/nantes/itinerary/search?profile=MEDIAN&bikeType=TRADITIONAL&wayPoints="+latlon+"%7C47.182687,-1.530957";
-  
-    document.getElementById("image_velo").innerHTML = "<a href="+geovelo_url+"> Lien vers Géovélo </a>";;
+    var destineo_url = "http://www.destineo.fr/fr/journey/result/?search[from][autocomplete]=Votre+Position&search[from][autocomplete-hidden]="+destineo_loc+"3&search[to][autocomplete]=Fete+du+quai+leon+secher&search[to][autocomplete-hidden]=-1.5311976000000413%3B47.1825993&search[datetime_represents]=arrival&search[datetime][time][hour]=15&search[datetime][time][minute]=00&search[datetime][date]=30%2F06%2F2017&search[modes][]=physical_mode%3ALocalTrain&search[modes][]=physical_mode%3ATramway&search[modes][]=physical_mode%3ABus&search[modes][]=physical_mode%3ACoach&search[count]=&search[min_nb_journeys]=2&search[max_nb_journeys]=3";
+    document.getElementById("itinerary").innerHTML = "<a href="+geovelo_url+" target=_blank> Lien vers Géovélo </a> <br /> <a href="+destineo_url+" target=_blank> Lien vers Destineo </a>";
+    // add a function to put on image as a link
 
 }
 
