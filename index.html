@@ -8,3 +8,61 @@
 
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 id="demo">Calculateur d'itinéraire </h1>
+
+<div id="image_velo">merci d'activer la localisation pour calculer votre itinéraire <br /> <button onclick="getLocation()">Cliquez ici pour autoriser la localisation</button></div>
+<!-- 
+<div id="lien_velo"> 
+
+<a href="#" id="lien_velo"> Test de geovelo URL </a>
+</div>
+
+-->
+<div id="lien_velo"></div>
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+    var geovelo_url = "https://www.geovelo.fr/nantes/itinerary/search?profile=MEDIAN&bikeType=TRADITIONAL&wayPoints="+latlon+"%7C47.182687,-1.530957";
+    document.getElementById("lien_velo").href = geovelo_url;
+    document.getElementById("image_velo").innerHTML = "<p> <a href="+geovelo_url+"> <img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;border:5;"> </a></p>";
+  // <a href="default.asp">   <img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;border:0;">
+}
+
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+
+</body>
+</html>
