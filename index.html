@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script>
-      var x = document.getElementById("demo");
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-          } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-          }
-        }
-      function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude + 
-        "<br>Longitude: " + position.coords.longitude; 
-        }
-    </script>
-  </head>
   <body>
-    <h1>Hello!</h1>
-  </body>
+<p>Merci de partager votre localisation pour activer le questionnaire :</p>
+
+<button onclick="getLocation()">Partager</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+</body>
 </html>
