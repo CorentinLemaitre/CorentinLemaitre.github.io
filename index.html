@@ -41,8 +41,8 @@ function showPosition(position) {
 
     var geovelo_url = "https://www.geovelo.fr/nantes/itinerary/search?profile=MEDIAN&bikeType=TRADITIONAL&wayPoints="+latlon+"%7C47.182687,-1.530957";
     document.getElementById("lien_velo").href = geovelo_url;
-    document.getElementById("image_velo").innerHTML = "<p> <a href="+geovelo_url+"> <img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;border:5;"> </a></p>";
-  // <a href="default.asp">   <img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;border:0;">
+    document.getElementById("image_velo").innerHTML = "<a href="+geovelo_url+"> <img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;border:0;"> </a>";
+
 }
 
 
