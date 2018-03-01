@@ -27,10 +27,27 @@ body, html {height: 100%}
 </script>
 <script src="https://use.fontawesome.com/acc5504c96.js"></script>
 
+    <script>
+
+    /**
+* Fonction de suivi des clics sur des liens sortants dans Analytics
+* Cette fonction utilise une chaîne d'URL valide comme argument et se sert de cette chaîne d'URL
+* comme libellé d'événement. Configurer la méthode de transport sur 'beacon' permet d'envoyer le clic
+* au moyen de 'navigator.sendBeacon' dans les navigateurs compatibles.
+*/
+var trackOutboundLink = function(url) {
+   ga('send', 'event', 'outbound', 'click', url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
+    </script>
+
 </head>
 
 <body>
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-black">
+<a href="http://www.example.com" onclick="trackOutboundLink('http://www.example.com'); return false;">Check out example.com</a>
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-black">
    <div class="w3-display-top w3-center w3-padding-large w3-xlarge">
     Venir autrement à l'événement
   </div>
@@ -60,7 +77,7 @@ function showPosition(position) {
     var destineo_loc = position.coords.longitude + "%3B" + position.coords.latitude;
     var geovelo_url = "https://www.geovelo.fr/nantes/itinerary/search?profile=MEDIAN&bikeType=TRADITIONAL&wayPoints="+latlon+"%7C47.182687,-1.530957";
     var destineo_url = "http://www.destineo.fr/fr/journey/result/?search[from][autocomplete]=Votre+Position&search[from][autocomplete-hidden]="+destineo_loc+"3&search[to][autocomplete]=Fete+du+quai+leon+secher&search[to][autocomplete-hidden]=-1.5311976000000413%3B47.1825993&search[datetime_represents]=arrival&search[datetime][time][hour]=15&search[datetime][time][minute]=00&search[datetime][date]=30%2F09%2F2017&search[modes][]=physical_mode%3ALocalTrain&search[modes][]=physical_mode%3ATramway&search[modes][]=physical_mode%3ABus&search[modes][]=physical_mode%3ACoach&search[count]=&search[min_nb_journeys]=2&search[max_nb_journeys]=3";
-    document.getElementById("itinerary").innerHTML = "<div class='w3-half'><a href="+geovelo_url+" target=_blank class='w3-animate-top w3-center w3-xlarge'><button style='width:80%'><i class='fa fa-bicycle fa-5x' title='Venir à vélo'></i><br> Venir à vélo </button></a></div> <div class='w3-half'><a href="+destineo_url+" target=_blank class='w3-xlarge w3-animate-top w3-center'><button style='width:80%'><i class='fa fa-bus fa-fw fa-5x' title='Venir en bus'></i><br>Venir en bus</button></a></div>";
+    document.getElementById("itinerary").innerHTML = "<div class='w3-half'><a href="+geovelo_url+" onclick="trackOutboundLink('geovelo'+latlon+); return false;" target=_blank class='w3-animate-top w3-center w3-xlarge'><button style='width:80%'><i class='fa fa-bicycle fa-5x' title='Venir à vélo'></i><br> Venir à vélo </button></a></div> <div class='w3-half'><a href="+destineo_url+" target=_blank class='w3-xlarge w3-animate-top w3-center'><button style='width:80%'><i class='fa fa-bus fa-fw fa-5x' title='Venir en bus'></i><br>Venir en bus</button></a></div>";
     // add a function to put on image as a link
 }
 function showError(error) {
