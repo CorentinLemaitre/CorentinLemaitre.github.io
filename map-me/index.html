@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet" />  <style>
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <script>
+mapboxgl.accessToken = "pk.eyJ1IjoiY29yZW50aW5sZW1haXRyZSIsImEiOiJjajQ0OGxmZ2sxNTVkMnFwbjI2M3RsMTc5In0.35Ah1wy069n6jeaniWxMWg";
+
+/* Map: This represents the map on the page. */
+var map = new mapboxgl.Map({
+  container: "map",
+  style: "mapbox://styles/mapbox/light-v9",
+  zoom:4.0,
+  center: [2.27435,45.37574]
+});
+
+map.on("load", function () {
+  /* Image: An image is loaded and added to the map. */
+  map.loadImage("icon.png", function(error, image) {
+      if (error) throw error;
+      map.addImage("custom-marker", image);
+      /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+      map.addLayer({
+        id: "markers",
+        type: "symbol",
+        /* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features:[{"type":"Feature","geometry":{"type":"Point","coordinates":[-1.5337461902264238,47.21685252144127]}}]}
+        },
+        layout: {
+          "icon-image": "custom-marker",
+        }
+      });
+    });
+});
+  </script>
+
+</body>
+</html>
